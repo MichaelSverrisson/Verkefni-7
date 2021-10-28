@@ -69,15 +69,8 @@ function checkGame(player, computer) {
   if (player === computer){
     return 0;
   }
-  if(player === '2' && computer === '1'){
-    return -1;
-  }
-  if(player === '3' && computer === '2'){
-    return -1;
-  }
-  if (player === '1' && computer === '3'){
-    return -1;
-  }
+  else return -1;
+
 }
 //console.assert(checkGame('1', '2') === 1, 'Skæri vinnur blað');
 //console.assert(checkGame('2', '3') === 1, 'Blað vinnur stein');
@@ -95,13 +88,16 @@ function round() {
     let hvervann = checkGame(player, computer);
     if (hvervann === 1){
       alert('SIGUR');
+      wins++;
     }
     if (hvervann === -1){
       alert('TAP');
+      losses++;
     }
     if (hvervann === 0){
       alert('JAFNTEFLI');
     }
+    leikirspiladir++;
     return hvervann;
   // TODO útfæra
   // 1. Spyrja um hvað spilað, ef cancel, hætta
@@ -125,21 +121,13 @@ function play() {
       const vitlaust = alert('Sláðu inn oddatölu sem er minni en 10');
       return false;
     }
+    while((wins || losses) <= (leikirspiladir/2)){
+      round();
+    }
     for(let i=0; i<bestOf;i++){
     const player = round();
     console.log(player);
     }
-    if(checkGame = 1){
-      wins++;
-      leikirspiladir++;
-    }
-    if (checkGame = -1){
-      losses++;
-      leikirspiladir++;
-    }
-    leikirspiladir++;
-    return leikirspiladir;
-
   // TODO útfæra
   // 1. Spyrja um fjölda leikja
   // 2. Staðfesta að fjöldi leikja sé gilt gildi
