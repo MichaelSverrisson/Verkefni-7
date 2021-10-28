@@ -12,6 +12,7 @@ let wins = 0;
 /** Global breyta sem heldur utan um heildar töp */
 let losses = 0;
 
+let leikirspiladir = 0;
 /**
  * Athugar hvort gefin tala sé gild sem best-of gildi.
  * @param {number} bestOf Tala sem skal athuga
@@ -56,25 +57,25 @@ function playAsText(play) {
  * @returns -1 ef tölva vann, 0 ef jafntefli, 1 ef spilari vann
  */
 function checkGame(player, computer) {
-  if (player === 1 && computer === 2){
+  if (player === '1' && computer === '2'){
     return 1;
   }
-  if (player === 2 && computer === 3){
+  if (player === '2' && computer === '3'){
     return 1;
   }
-  if (player === 3 && computer === 1){
+  if (player === '3' && computer === '1'){
     return 1;
   }
   if (player === computer){
     return 0;
   }
-  if(player === 2 && computer === 1){
+  if(player === '2' && computer === '1'){
     return -1;
   }
-  if(player === 3 && computer === 2){
+  if(player === '3' && computer === '2'){
     return -1;
   }
-  if (player === 1 && computer === 3){
+  if (player === '1' && computer === '3'){
     return -1;
   }
 }
@@ -90,9 +91,18 @@ function checkGame(player, computer) {
  */
 function round() {
   const player = prompt('Veldu skæri, blað eða steinn');
-  let computer = Math.floor(Math.random() * 2 + 1);
-    return player;
-
+  let computer = Math.floor(Math.random() * 3 + 1).toString();
+    let hvervann = checkGame(player, computer);
+    if (hvervann === 1){
+      alert('SIGUR');
+    }
+    if (hvervann === -1){
+      alert('TAP');
+    }
+    if (hvervann === 0){
+      alert('JAFNTEFLI');
+    }
+    return hvervann;
   // TODO útfæra
   // 1. Spyrja um hvað spilað, ef cancel, hætta
   // 2. Ef ógilt, tölva vinnur
@@ -107,27 +117,28 @@ function round() {
  * Spilar leik og bætir útkomu (sigur eða tap) við í viðeigandi global breytu.
  */
 function play() {
-  let playerscore = 0;
-  let computerscore = 0;
-  const bestOf = prompt('Hversu marga leiki?');
-    if(bestOf===null){
+  const bestOf = prompt('Hversu marga leiki viltu spila?');
+  if(bestOf===null){
       return false;
     }
-    if(isValidBestOf(bestOf)===false){
+    if(isValidBestOf(bestOf===false)){
       const vitlaust = alert('Sláðu inn oddatölu sem er minni en 10');
       return false;
     }
     for(let i=0; i<bestOf;i++){
     const player = round();
-    const computer = computerround();
     console.log(player);
     }
     if(checkGame = 1){
       wins++;
+      leikirspiladir++;
     }
-    if(checkGame = -1){
+    if (checkGame = -1){
       losses++;
+      leikirspiladir++;
     }
+    leikirspiladir++;
+    return leikirspiladir;
 
   // TODO útfæra
   // 1. Spyrja um fjölda leikja
@@ -141,6 +152,8 @@ function play() {
  * Birtir stöðu spilara.
  */
 function games() {
+  let masókisti = ((100 * wins) /leikirspiladir);
+  alert (leikirspiladir + ' leikir spilaðir ' + masókisti.toFixed(2) + ' %' + ' leikja sigraðir ');
   // TODO útfæra
 }
 // Hér getum við ekki skrifað test þar sem fallið les úr global state
